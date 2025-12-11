@@ -1,12 +1,34 @@
 import { useEffect, useState } from "react";
 import styles from "@site/src/css/landing.module.css";
 
+// const WORDS = [
+//   "instant",
+//   "trustless",
+//   "universal",
+//   "verifiable",
+//   "zero delay",
+//   "decentralized",
+//   "better",
+// ];
+
+// const WORDS = [
+//   "agentic",
+//   "instant",
+//   "trustless",
+//   "universal",
+//   "verifiable",
+//   "decentralized",
+//   // "better",
+//   "on z402",
+//   "agentic-first",
+//   "agentic",
+// ];
+
 const WORDS = [
+  "agentic",
   "instant",
-  "trustless",
   "universal",
-  "verifiable",
-  "zero delay",
+  "trustless",
   "decentralized",
   "better",
 ];
@@ -35,13 +57,12 @@ export default function LandingHero() {
 
       <div className={styles.heroOverlay}>
         <p className={styles.heroTitle}>
-          The{" "}
+          The
           <span key={word} className={`${styles.accent} ${styles.wordAnim}`}>
             {word}
           </span>{" "}
-          x402
           <br />
-          facilitator
+          AI payment method
         </p>
         <p className={styles.heroSub}>
           Unlock AI agents transactions with{" "}
