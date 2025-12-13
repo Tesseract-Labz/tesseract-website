@@ -37,7 +37,7 @@ const features: Feature[] = [
     name: "No protocol fees",
     title: "No protocol fees",
     description:
-      "The underling protocol, z402, is an open standard that doesn't charge any fees. Enjoy subcent payments!",
+      "The underling protocol, z402, is an open standard that doesn't charge any fees. The transaction cost comes from the underling blockchain, but with z402 you can batch transactions and save big! Enjoy subcent payments!",
     icon: (
       <svg
         width="32"

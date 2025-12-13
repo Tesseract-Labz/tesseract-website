@@ -91,6 +91,12 @@ export default function HowItWorks() {
             flexWrap: "wrap",
           }}
         >
+          <Link
+            to="/blog/what-is-the-internet-of-agents"
+            className={`${styles.btn} ${styles.btnOutline}`}
+          >
+            Read the intro post
+          </Link>
           <Link to="/docs" className={`${styles.btn} ${styles.btnOutline}`}>
             Read the Docs
           </Link>

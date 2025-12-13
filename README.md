@@ -46,6 +46,10 @@ Sections:
 
 - The button "Get Started" should maybe be "Ship Now" or "Deploy", in any case it should redirect to the developer quickstart
 
+Docs:
+
+- Add to the docs a section on batched payments/withdraws
+
 ### Fixes
 
 - Refactor the wording to not only consider AI agents, but also other things, there are some examples on <https://www.x402.org/>. I mean, probably the best thing would be of having a website for z402 and a website for Tesseract focusing on AI.
