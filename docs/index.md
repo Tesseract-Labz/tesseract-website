@@ -9,4 +9,4 @@ At Tesseract, we believe that AI agents will automate many jobs and tedious task
 
 A payment protocol for AI agents is a fundamental building block for what will be the **Internet of Agents**, a set of AI effectively collaborating with each other solving complex real world tasks. Tesseract offers open source tools and commercial solutions to future proof your products and projects and get you ready for the **Agentic commerce**.
 
-If you want to know more, we suggest you to read our [introductory blog post](/blog/what-is-the-internet-of-agents) on the Internet of Agents.
+If you want to know more, we suggest you to read our [introductory blog post](/blog/building-the-internet-of-agents-with-z402) on the Internet of Agents.

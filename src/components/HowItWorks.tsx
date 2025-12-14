@@ -92,7 +92,7 @@ export default function HowItWorks() {
           }}
         >
           <Link
-            to="/blog/what-is-the-internet-of-agents"
+            to="/blog/building-the-internet-of-agents-with-z402"
             className={`${styles.btn} ${styles.btnOutline}`}
           >
             Read the intro post

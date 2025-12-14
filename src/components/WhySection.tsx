@@ -33,11 +33,11 @@ const features: Feature[] = [
     ),
   },
   {
-    id: "no-protocol-fees",
-    name: "No protocol fees",
-    title: "No protocol fees",
+    id: "micropayments-accepted",
+    name: "Micropayments accepted",
+    title: "Micropayments",
     description:
-      "The underling protocol, z402, is an open standard that doesn't charge any fees. The transaction cost comes from the underling blockchain, but with z402 you can batch transactions and save big! Enjoy subcent payments!",
+      "The underling protocol, z402, is an open standard that doesn't charge any fees. Very low transaction fees (less than 0.001\$ typically) come from the underling blockchain, thanks to z402 you can even batch transactions and save big! Enjoy subcent payments!",
     icon: (
       <svg
         width="32"

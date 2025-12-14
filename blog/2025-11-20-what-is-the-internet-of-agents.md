@@ -1,6 +1,6 @@
 ---
-slug: what-is-the-internet-of-agents
-title: What is the Internet of Agents
+slug: building-the-internet-of-agents-with-z402
+title: Building the Internet of Agents with z402
 authors: frollo
 tags: [internet of agents, z402, x402]
 ---
@@ -25,9 +25,10 @@ We believe that an internet native protocol should have the following characteri
 2. no central control: the protocol shouldn't controlled by any individual or organization with conflicts of interest.
 3. integrated with HTTP: the protocol should be implemented in HTTP using the 402 status code, as per the 1997's original spec.
 4. transactions have with no minimum (or very low): it must be possible to make subcent transactions.
-5. just as fast as the internet: the payment protocol shouldn't introduce any delay due to the protocol itself. When making a transaction as an HTTP request, it should be immediately clear that the transaction is valid, without the need of triggering more network requests.
+5. scalable: the payment protocol should be able to scale almost without limit, like the internet itself.
+6. just as fast as the internet: the payment protocol shouldn't introduce any delay due to the protocol itself. When making a transaction as an HTTP request, it should be immediately clear that the transaction is valid, without the need of triggering more network requests.
 
-The first protocol to try tackle these problems was [x402](https://x402.org), it satisfies (debatebly[^1]) all the requirements, except the last: x402 is **not** as fast as the internet, it is as fast as the blockchain it uses. We will later see how **z402** solved the last problem, nevertheless, x402 enabled new interesting use cases, in particular the constitution an **Internet of Agents**.
+The first protocol to try tackle these problems was [x402](https://x402.org), created by Base; it satisfies (debatebly[^1]) all the requirements, except the 5th and 6th: x402 is **not** as fast/scalable as the internet, it is as fast/scalable as the underlining blockchain. We will later see how **z402** solved these problems, nevertheless, x402 enabled new interesting use cases, in particular the constitution an **Internet of Agents**.
 
 ## Internet of Agents architecture
 
@@ -46,8 +47,9 @@ Google's [A2A protocol](https://a2a-protocol.org/) seems the emerging protocol f
 
 ## z402
 
-[z402](/docs/z402/introduction) is an **extension** of x402 that satisfies **all** the [requirements for an internet native payment protocol](#requirements-for-an-internet-native-payment-protocol), in particular it is as fast as the internet, that is doesn't add any delay to an HTTP request with an embedded payment and it doesn't require multiple HTTP requests to validate the payment.
+[z402](/docs/z402/introduction) is an **extension** of x402 that satisfies **all** the [requirements for an internet native payment protocol](#requirements-for-an-internet-native-payment-protocol), in particular it is as fast as the internet (it doesn't add any delay to an HTTP request with an embedded payment and it doesn't require multiple HTTP requests to validate the payment) and it scales orders of magnitude better than x402 (transactions can be batched in z402 reducing blockchain fees and increasing transactions per second).
 Broadly speaking, z402 uses a smart contract as escrow for the payments and releases the funds only if a valid cryptographic proof of payment is given, the full verification process is done off-chain, allowing to bypass the delay of the underlining blockchain and to perform instant transactions. You can read more how it works in the [docs](/docs/z402/introduction).
+Another advantage of z402 is that, by design, it can support blockchain with longer block time like Ethereum, as of today, x402 can't support such a blockchain because its speed is the speed of the blockchain, so x402 on Ethereum would be slow and nobody wants slow transactions, especially for AI agents, z402 is instant on every blockchain it supports.
 
 ### Use cases
 
@@ -65,36 +67,68 @@ Here is a (incomplete) list of use cases of z402, along with a comparison with e
   - Personal agent economy: for most people the smartphone is the gateway to many of their everyday activities, even tho the smartphone interfaces are built to be intuitive it still requires the user to "adapt" to the device. From a UX perspective, AI devices, equipped with speech and video capabilities, are the ultimate interface, because they would work by simply asking them to do whatever pleases you. This will eventually create "personal agents", that are AI agents that know us well as our smartphone knows us today. Differently from your smartphone, an AI agent would be autonomous, so it could do actions on our behalf, including shopping, this opens up a new set of use cases: ads for AI agents, personalized ads delivered through personal agents in the form of speech.
   - AI agent companies: AI agents can cooperate to offer complex services, then sharing the revenue.
 
+### Operative modes
+
+Since z402 is an extension of x402, it offers two operative modes:
+
+- x-mode: a 100\% x402 compatible mode, following the same specs
+- z-mode: what make z402 special, with instant payments, added scalability and lower fees on batched transactions
+
+In general, we believe that z-mode is better than x-mode in most cases, but not in all. z-mode outperforms x-mode every time a buyer needs to perform multiple transactions with a seller, in this case you get instant transactions and the lowest blockchain fees, even in the case of a single transaction z-mode performs just as good as x-mode (they have the same speed), but the overhead of using a smart contract slightly increases the blockchain fees. So, it's smart to use x-mode for single-use non-repeated transactions, for all the rest use z-mode.
+
+Choose z-mode every time, as buyer or seller, you need to do multiple transactions. For example, choose z-mode
+
+- for the internet of agents: z-mode is perfect for AI agents because it can stand high frequency transactions with no delay added and the lowest blockchain fees
+- As a buyer or seller, when you want instant transactions
+- when you offer as service REST API usage
+- when you offer as service database access
+- when you offer as service AI inference, cloud storage, etc
+- when you are a store
+- when you want to use a blockchain network not supported by x402
+
+Choose x-mode every time you are buying a service/good from a seller and you don't think you will buy again. For example, choose x-mode
+
+- the first time you buy from a seller and you don't think will buy again
+- when you are buying access to a one-time use resource from a seller you didn't buy from before
+- as a seller, when you want to be compatible with x402
+- as a buyer, when the seller only supports x402
+
 ### Comparison with other payment methods
 
 Let's compare z402 with other payment methods, including x402, Stipe and PayPal.
 
 #### Pricing and speed[^2]
 
-| Payment Method                        | Typical Fees    | Valid payment | Settlement                        | Chargeback Risk     | Scalability               |
-| ------------------------------------- | --------------- | ------------- | --------------------------------- | ------------------- | ------------------------- |
-| Credit Card                           | $0.30 + 2.9%    | ~1s           | Days (batch)                      | Yes, up to 120d     | 65k TPS                   |
-| PayPal                                | ~3% + fixed fee | ~1s           | Days                              | Yes                 | Unknown                   |
-| Stripe                                | 2.9% + 0.30\$   | ~1s           | 1-3 days                          | Yes                 | >13k TPS                  |
-| Stripe (Pay with Crypto)              | \>1.5%          | ~1s           | Depends on blockchain             | No – not reversible | Depends on blockchain     |
-| Ethereum L1                           | 1–5\$ + gas     | 12 s          | 1–2 min euristic, 13 min finality | No – not reversible | 15–20 TPS                 |
-| x402 (Base Flashblocks)               | \<0.001\$       | 200 ms        | 200 ms                            | No – not reversible | Hundreds to thousands TPS |
-| z402 (Base Flashblocks) (1k mean[^3]) | \<0.0001\$      | 0 ms          | whenever you want[^4]             | No – not reversible | TPS                       |
-| z402 (Ethereum) (1k mean[^3])         | \<0.001\$       | 0 ms          | whenever you want[^4]             | No – not reversible | Potentially limitless     |
-| z402 (Solana) (1k mean[^3])           | \<0.0001\$      | 0 ms          | whenever you want[^4]             | No – not reversible | Potentially limitless     |
+| Payment Method                        | Typical Fees    | Valid payment | Settlement                              | Scalability               | Chargeback Risk     |
+| ------------------------------------- | --------------- | ------------- | --------------------------------------- | ------------------------- | ------------------- |
+| Credit Card                           | $0.30 + 2.9%    | ~1s           | Days (batch)                            | 65k TPS                   | Yes, up to 120d     |
+| PayPal                                | ~3% + fixed fee | ~1s           | Days                                    | Unknown                   | Yes                 |
+| Stripe                                | 2.9% + 0.30\$   | ~1s           | 1-3 days                                | >13k TPS                  | Yes                 |
+| Stripe (Pay with Crypto)              | \>1.5%          | ~1s           | Depends on blockchain                   | Depends on blockchain     | No – not reversible |
+| Ethereum L1                           | 1–5\$ + gas     | 12 s          | 1–2 min euristic, 13 min finality       | 15–20 TPS                 | No – not reversible |
+| x402 (Base Flashblocks)               | \<0.001\$       | 200 ms[^5]    | 200 ms preconfirmation, 2s finality[^5] | Hundreds to thousands TPS | No – not reversible |
+| z402 (Base Flashblocks) (1k mean[^3]) | \<0.0001\$      | 0 ms          | whenever you want[^4]                   | TPS                       | No – not reversible |
+| z402 (Ethereum) (1k mean[^3])         | \<0.001\$       | 0 ms          | whenever you want[^4]                   | Potentially limitless     | No – not reversible |
+| z402 (Solana) (1k mean[^3])           | \<0.0001\$      | 0 ms          | whenever you want[^4]                   | Potentially limitless     | No – not reversible |
 
 #### User experience
 
-We compare the payment user experience for AI agent and for human agents.
+| Use case                                            | Legacy                                                                                                                                      | x402                                                                                                                                         | z402                                                                                                                                                                                   |
+| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| AI agents payments                                  | Non existing                                                                                                                                | <ol><li>Seemless integration</li><li>Payments speed depends on blockchain</li><li>Fees are low on the supported blockchains</li></ol>        | <ol><li>Seemless integration</li><li>Payments are instant</li><li>Incredibly low fees on any supported blockchain</li><li>All blockchains with smart contracts are supported</li></ol> |
+| Pay-per-use (ex. market research agent)             | <ol><li>Humans need to manually subscribe/buy credits to many API services</li><li>API keys set up</li><li>API credits can expire</li></ol> | <ol><li>AI Agent pays for API services</li><li>No API key setup required</li><li>Payments speed depends on blockchain and low fees</li></ol> | <ol><li>Agent pays for API services</li><li>No API key setup required</li><li>Instant payments and lowest fees</li></ol>                                                               |
+| Pay-per-access (ex. human wants to read an article) | <ol><li>Account registration required to make a subscription</li><li>Monthly/yearly subscription required to remove paywall</li></ol>       | <ol><li>Pay with wallet and unlock paywall</li><li>No registration required</li></ol>                                                        | Same as x402 (x-mode)                                                                                                                                                                  |
 
-| Use case           | Traditional Process (Stripe, PayPay, etc.) | x402                                            | z402 |
-| ------------------ | ------------------------------------------ | ----------------------------------------------- | ---- |
-| AI agents payments | Non existing                               | <ul><li>Fast payment</li><li>low fees</li></ul> |      |
+## Conclusion
 
-[^1]: In some, fairly common, cases, x402 fails to be truly decentralized, so failing to satisfy the point 2 of [our list](#requirements-for-an-internet-native-payment-protocol). For example if you run x402 on Base using Flashblocks (currently the most used option, since x402 was made by Base), Base infrastructure becomes a centralization point. The protocol is not failing by itself but in the way most people, often unknowingly, use it. See the [comparison with x402](#comparison-with-other-payment-methods) for more.
+[^1]:
+    In some, fairly common, cases, x402 fails to be truly decentralized. For example if you run x402 on Base, Base infrastructure becomes a centralization point, because Base has only one sequencer (theirs), this causes [predictable pitfalls](https://coinfomania.com/base-l2-block-production-halt-centralization-risk/). This case is relevant since currently using x402 on Base with Flashblocks is the most used settings.
+    In this case, the protocol is not failing by itself but in the way most people and agents, often unknowingly, use it.
 
 [^2]: The reported information on external companies is to be intended as explanatory and not accurate as it is outside of Tesseract's control, it's reported for your convenience. The reported information is subject to change, you can verify independently our claims by heading over to the respective companies website, if you find any incorrectness don't hesitated to contact us or open a pull request.
 
 [^3]: Since z402 works in such a way that the more transactions you batch, the less fees are due per transaction, the fees here reported are calculated as a mean of 1000 batched transactions. Read more in the [docs](/docs). <!-- TODO: add the correct link when you create the page -->
 
-[^4]: The settlement is done through the z402 smart contract, so users can know immediately if a payment is valid or not (i.e. if it will be settled or not), but the actual settlement time is chosen by the seller, the more they wait, the more they can batch transactions and save on blockchain fees. So, once the payment proof has been submitted, the settlement time is the settlement time of the blockchain (as for x402).
+[^4]: The settlement is done through the z402 smart contract, so users can know immediately if a payment is valid or not (i.e. if it will be settled or not), but the actual settlement time is chosen by the seller, the more they wait, the more they can batch transactions and save on blockchain fees. So, once the payment proof has been submitted, the settlement time is the settlement time of the blockchain (as for x402), the best strategy is to submit the payment proofs during execution or at later moment, this way the task execution is not delayed at all.
+
+[^5]: Base uses Flashblocks that splits a 2 seconds block into ten 200 milliseconds blocks, in the Flashblocks FAQ, they claim that it is very rare that a flashblock fails to be included in a final block, but it's possible, this even it's called reorg, so the actual finality is still 2 seconds. You can read more technical details, for example, [here](https://sheys.substack.com/p/the-truth-about-flashblocks-on-base).
