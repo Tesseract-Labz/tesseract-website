@@ -11,9 +11,10 @@ interface MeshNode {
   icon: string;
 }
 
-const getCardPlacement = (y: number) => {
-  if (y <= 50) return "down";
-  if (y > 50) return "up";
+const getCardPlacement = (x: number, y: number) => {
+  const v = y <= 50 ? "down" : "up";
+  const h = x <= 20 ? "left" : x >= 80 ? "right" : "center";
+  return { v, h };
 };
 
 const NODES: MeshNode[] = [
@@ -205,13 +206,19 @@ export default function InternetOfAgentsNetworNetwork() {
         {/* Hover card */}
         {hovered &&
           (() => {
-            const placement = getCardPlacement(hovered.y);
+            const { v, h } = getCardPlacement(hovered.x, hovered.y);
 
             return (
               <div
-                className={`${styles.meshCard} ${
-                  placement === "down" ? styles.meshCardDown : styles.meshCardUp
-                }`}
+                className={[
+                  styles.meshCard,
+                  v === "down" ? styles.meshCardDown : styles.meshCardUp,
+                  h === "left"
+                    ? styles.meshCardLeft
+                    : h === "right"
+                      ? styles.meshCardRight
+                      : styles.meshCardCenter,
+                ].join(" ")}
                 style={{ left: `${hovered.x}%`, top: `${hovered.y}%` }}
               >
                 <strong>{hovered.name}</strong>

@@ -683,6 +683,7 @@
 }
 
 .meshContainer {
+  --mesh-card-gap: 8px;
   position: relative;
   width: 100%;
   height: 600px;
@@ -761,22 +762,38 @@
 }
 
 /* Direction modifiers */
-.meshCardUp {
+/* Horizontal modifiers */
+.meshCardCenter {
+  transform: translate(-50%, 0);
+}
+
+.meshCardLeft {
+  /* anchor card's left edge near the node */
+  transform: translate(var(--mesh-card-gap), 0);
+}
+
+.meshCardRight {
+  /* anchor card's right edge near the node */
+  transform: translate(calc(-100% - var(--mesh-card-gap)), 0);
+}
+
+/* Combine with vertical modifiers */
+.meshCardUp.meshCardCenter {
   transform: translate(-50%, -120%);
 }
-
-.meshCardDown {
-  transform: translate(-50%, 20%);
+.meshCardUp.meshCardLeft {
+  transform: translate(var(--mesh-card-gap), -120%);
+}
+.meshCardUp.meshCardRight {
+  transform: translate(calc(-100% - var(--mesh-card-gap)), -120%);
 }
 
-/* Small screens */
-@media (max-width: 680px) {
-  .meshContainer {
-    height: 450px;
-  }
-
-  .meshNodeIcon {
-    width: 40px;
-    height: 40px;
-  }
+.meshCardDown.meshCardCenter {
+  transform: translate(-50%, 20%);
+}
+.meshCardDown.meshCardLeft {
+  transform: translate(var(--mesh-card-gap), 20%);
+}
+.meshCardDown.meshCardRight {
+  transform: translate(calc(-100% - var(--mesh-card-gap)), 20%);
 }
