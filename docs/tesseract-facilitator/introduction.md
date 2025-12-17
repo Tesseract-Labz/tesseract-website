@@ -4,15 +4,15 @@ sidebar_position: 1
 
 # Facilitator Introduction
 
-The **Tesseract facilitator** is a facilitator according to the [z402](/docs/z402/introduction.md) protocol hosted by Tesseract focused on cutting-edge features and privacy. Let's understand what it can do for you and how it works.
+The **Tesseract facilitator** is a facilitator according to the [z402](/docs/z402/introduction.md) protocol hosted by Tesseract, focused on cutting-edge features and privacy. Let's understand what it can do for you and how it works.
 
 ## Why z402 and not x402
 
-x402 is a protocol that enables payments in HTTP requests, the protocol relies on the blockchain and inherits its speed, while z402 works similarly to x402 but with **zero** blockchain-induced delay, it allows for truly instantaneous transactions and it's more secure and decentralized because it runs on audited smart contracts.
+x402 is a protocol that enables payments in HTTP requests, the protocol relies on the blockchain and inherits its speed and scalability, while z402 works similarly to x402, its speed and scalability are not constrained by the blockchain that it uses. Transactions made with z402 have **zero** impact to execution and are almost **infinitely** scalable, in short, transactions are instant and cheaper than x402.
 z402 is an extension of x402, meaning it has all its features and you can use z402 software and don't experience problems while using the x402 ecosystem.
 
 :::note
-z402 doesn't aim to replace x402, but rather to improve it and extend its functionalities. We're working we the x402 team to bring you one feature rich protocol, stay tuned! In the meantime, you can enjoy z402's cutting edge features with Tesseract.
+z402 doesn't aim to replace x402, but rather to improve it and extend its functionalities. One day the two protocols might merge, stay tuned! In the meantime, you can enjoy z402's cutting edge features with Tesseract.
 :::
 
 You can discover the why z402 is awesome and its technical details in the [dedicated docs](/docs/z402/introduction.md).
