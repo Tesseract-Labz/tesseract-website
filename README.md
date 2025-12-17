@@ -50,6 +50,7 @@ High priority:
 
 Medium priority:
 
+- Improve page accessibility: consider color blindness, etc
 - Improve navbar by adding a call to action button, with a button that says "Get Started" or "Ship Now" or "Deploy", in any case it should redirect to the developer quickstart
 - Add to the docs a section on batched payments/withdraws
   Low priority:
