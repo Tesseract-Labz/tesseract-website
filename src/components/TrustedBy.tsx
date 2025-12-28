@@ -2,12 +2,24 @@ import styles from "@site/src/css/landing.module.css";
 
 export default function TrustedBy() {
   const logos = [
-    "google_logo.png",
-    "microsoft_logo.png",
-    "openai_logo.png",
-    "anthropic_logo.png",
-    "etherscan_logo.png",
-    "zama_logo.png",
+    { src: "google_logo.png", name: "Google", url: "https://www.google.com" },
+    {
+      src: "microsoft_logo.png",
+      name: "Microsoft",
+      url: "https://www.microsoft.com",
+    },
+    { src: "openai_logo.png", name: "OpenAI", url: "https://openai.com" },
+    {
+      src: "anthropic_logo.png",
+      name: "Anthropic",
+      url: "https://www.anthropic.com",
+    },
+    {
+      src: "etherscan_logo.png",
+      name: "Etherscan",
+      url: "https://etherscan.io",
+    },
+    { src: "zama_logo.png", name: "Zama", url: "https://www.zama.org" },
   ];
 
   return (
@@ -21,13 +33,25 @@ export default function TrustedBy() {
       </div>
 
       <div className={styles.trustedLogos}>
-        {logos.map((src, i) => (
-          <img
-            key={i}
-            src={`/media/${src}`}
-            alt={`Company logo ${i + 1}`}
-            className={styles.trustedLogo}
-          />
+        {logos.map((logo) => (
+          <a
+            key={logo.src}
+            href={logo.url}
+            target="_blank"
+            rel="noreferrer noopener"
+            aria-label={`${logo.name} website`}
+            className={styles.trustedLogoLink}
+          >
+            <span
+              role="img"
+              aria-label={`${logo.name} logo`}
+              className={styles.trustedLogo}
+              style={{
+                WebkitMaskImage: `url(/media/${logo.src})`,
+                maskImage: `url(/media/${logo.src})`,
+              }}
+            />
+          </a>
         ))}
       </div>
     </section>
