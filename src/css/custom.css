@@ -1,31 +1,23 @@
 /* global variables */
 :root {
-  --bg: #0a0714;
-  --white: #fafbff;
-  --card: #0b1220;
-  --muted: #dfe1f4;
-  --accent: #7c5cff;
-  --accent-2: #61dafb;
-  --glass: rgba(255, 255, 255, 0.04);
+  --bg: #080d1a;
+  --white: #f7f9ff;
+  --card: #0f172a;
+  --muted: #d4ddf0;
+  --accent: #7c3aed;
+  --accent-2: #22d3ee;
+  --glass: rgba(255, 255, 255, 0.08);
 }
-
-/* Full viewport */
-/* html, */
-/* body, */
-/* #root { */
-/*   height: 100%; */
-/*   width: 100%; */
-/* } */
 
 /* Original white theme */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-color-primary: #4c1d95;
+  --ifm-color-primary-dark: #3b1682;
+  --ifm-color-primary-darker: #32106f;
+  --ifm-color-primary-darkest: #240b57;
+  --ifm-color-primary-light: #6d28d9;
+  --ifm-color-primary-lighter: #7c3aed;
+  --ifm-color-primary-lightest: #8b5cf6;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
@@ -33,12 +25,12 @@
 [data-theme="dark"] {
   /* Primary brand color for buttons, links, badges, pagination, highlights */
   --ifm-color-primary: var(--accent);
-  --ifm-color-primary-dark: #6f52e6;
-  --ifm-color-primary-darker: #5c45c2;
-  --ifm-color-primary-darkest: #473596;
-  --ifm-color-primary-light: var(--accent-2);
-  --ifm-color-primary-lighter: #77e0ff;
-  --ifm-color-primary-lightest: #a7efff;
+  --ifm-color-primary-dark: #6d28d9;
+  --ifm-color-primary-darker: #5b21b6;
+  --ifm-color-primary-darkest: #4c1d95;
+  --ifm-color-primary-light: #8b5cf6;
+  --ifm-color-primary-lighter: #a78bfa;
+  --ifm-color-primary-lightest: #c4b5fd;
 
   /* Link styling override (Infima normally uses primary colors for links) */
   --ifm-link-color: var(--accent-2);
@@ -100,4 +92,26 @@
 /* .menu__link, */
 .navbar__item.navbar__link:hover::after {
   transform: scaleX(1);
+}
+
+/* Footer overrides for better brand alignment */
+.footer {
+  background: linear-gradient(180deg, rgba(20, 27, 48, 0.9), var(--card));
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--muted);
+}
+
+.footer__title,
+.footer__link-item {
+  color: var(--muted);
+}
+
+.footer__link-item:hover {
+  color: var(--accent-2);
+  text-decoration: none;
+}
+
+.footer__bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--muted);
 }
