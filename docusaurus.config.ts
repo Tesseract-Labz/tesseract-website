@@ -89,8 +89,8 @@ const config: Config = {
         },
         { to: "/blog", label: "Blog", position: "left" },
         {
-          href: "https://github.com/Tesseract-Labz/",
-          label: "GitHub",
+          href: "mailto:info@tesseractlabz.com",
+          label: "Get in Touch",
           position: "right",
         },
       ],
